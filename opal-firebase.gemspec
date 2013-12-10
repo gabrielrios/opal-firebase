@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Opal::Firebase::VERSION
   spec.authors       = ["Gabriel Rios"]
   spec.email         = ["gabrielfalcaorios@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{Opal access to Firebase}
+  spec.summary       = %q{Opal library for Firebase}
   spec.homepage      = ""
   spec.license       = "MIT"
 

@@ -1,3 +1,4 @@
+# NOTE: should pass the to_n here
 class Firebase
   include Native
 
@@ -14,7 +15,11 @@ class Firebase
 
   # TODO: Callback
   def set(value, &callback)
-    `#@native.set(#{value})`
+    `#@native.set(#{value.to_n})`
+  end
+
+  def push(value, &callback)
+    `#@native.push(#{value.to_n})`
   end
 
 
