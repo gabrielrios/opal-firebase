@@ -23,8 +23,19 @@ class Firebase
   end
 
 
-  # TODO
+  # Based on
+  # https://github.com/opal/opal-jquery/blob/master/opal/opal-jquery/element.rb#L279
   def on(event_type, &callback)
-    `#@native.on(#{event_type})`
+    %x{
+      var wrapper = function(evt) {
+        if (evt.preventDefault) {
+          evt = #{Event.new `evt`};
+        }
+
+        return block.apply(null, arguments);
+      };
+
+      #@native.on(#{event_type}, wrapper)
+    }
   end
 end
