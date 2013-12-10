@@ -1,7 +1,4 @@
+require 'opal'
 require "opal/firebase/version"
+Opal.append_path File.expand_path('../../../opal', __FILE__).untaint
 
-module Opal
-  module Firebase
-    # Your code goes here...
-  end
-end

@@ -1,4 +1,7 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in opal-firebase.gemspec
+gem 'opal', :github => 'opal/opal'
+gem 'opal-rspec', '0.3.0.beta1'
+
+gem 'rake'
 gemspec
