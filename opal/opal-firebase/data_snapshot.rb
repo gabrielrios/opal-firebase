@@ -1,0 +1,61 @@
+# TODO: Tests, look at https://github.com/opal/opal-jquery/blob/master/spec/event_spec.rb
+# or not if its just delegates
+#
+class DataSnapshot
+  def initialize#native)
+    @native = native
+  end
+  #
+  #  Get the Javascript object representation of the DataSnapshot.
+  def val
+    `#@native.val()`
+  end
+
+  #  Get a DataSnapshot for the specified child location.
+  def child(childPath)
+    %x{ #{ DataSnapshot.new `#@native.child(childPath)` } }
+  end
+
+  #  Enumerate through the DataSnapshot’s children.
+  def each_child(&block)
+    raise NotImplementedError
+  end
+
+  #  Return true if the specified child exists.
+  def has_child?(childPath)
+    `#@native.hasChild(childPath)`
+  end
+
+  #  Return true if this DataSnapshot has any children.
+  def has_children?
+    `#@native.hasChildren()`
+  end
+
+  #  Get the name of this DataSnapshot's location.
+  def name
+    `#@native.name()`
+  end
+
+  #  Get the number of children for this DataSnapshot.
+  def num_children
+    `#@native.numChildren()`
+  end
+
+  #  Get the Firebase reference for this DataSnapshot's location.
+  def reference
+    %x{ #{ Firebase.new `#@native.ref()` } }
+  end
+
+  #  Get the priority of the data in this DataSnapshot.
+  def priority
+    `#@native.getPriority()`
+  end
+
+  def export_val # Export data as a Javascript object with priority information.
+    `#@native.exportVal()`
+  end
+
+  def inspect
+   "#<Firebase::Snapshot: #{val}>"
+  end
+end

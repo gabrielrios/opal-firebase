@@ -27,12 +27,9 @@ class Firebase
   # https://github.com/opal/opal-jquery/blob/master/opal/opal-jquery/element.rb#L279
   def on(event_type, &callback)
     %x{
-      var wrapper = function(evt) {
-        if (evt.preventDefault) {
-          evt = #{Event.new `evt`};
-        }
-
-        return block.apply(null, arguments);
+      var wrapper = function(snapshot) {
+        snapshot = #{DataSnapshot.new `snapshot`}
+        return callback.apply(snapshot);
       };
 
       #@native.on(#{event_type}, wrapper)
