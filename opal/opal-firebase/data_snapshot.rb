@@ -2,12 +2,14 @@
 # or not if its just delegates
 #
 class DataSnapshot
-  def initialize#native)
-    @native = native
+  include Native
+
+  def initialize(_native)
+    super(_native)
   end
   #
   #  Get the Javascript object representation of the DataSnapshot.
-  def val
+  def value
     `#@native.val()`
   end
 
@@ -56,6 +58,6 @@ class DataSnapshot
   end
 
   def inspect
-   "#<Firebase::Snapshot: #{val}>"
+   "#<Firebase::Snapshot name:#{name} value:#{value}>"
   end
 end

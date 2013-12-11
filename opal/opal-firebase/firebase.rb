@@ -26,13 +26,11 @@ class Firebase
   # Based on
   # https://github.com/opal/opal-jquery/blob/master/opal/opal-jquery/element.rb#L279
   def on(event_type, &callback)
-    %x{
-      var wrapper = function(snapshot) {
-        snapshot = #{DataSnapshot.new `snapshot`}
-        return callback.apply(snapshot);
-      };
+    wrapper = proc {|snapshot|
+      snapshot = DataSnapshot.new(`snapshot`)
+      callback.call(snapshot)
+    }.to_n
 
-      #@native.on(#{event_type}, wrapper)
-    }
+    `#@native.on(#{event_type}, #{wrapper})`
   end
 end
