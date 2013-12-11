@@ -9,8 +9,13 @@ class DataSnapshot
   end
   #
   #  Get the Javascript object representation of the DataSnapshot.
+  def val
+     `#@native.val()`
+  end
+
+  # Get a Hash representantion of the data snapshot
   def value
-    `#@native.val()`
+    Hash.new(val)
   end
 
   #  Get a DataSnapshot for the specified child location.
