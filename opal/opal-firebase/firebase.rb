@@ -1,4 +1,5 @@
 # NOTE: should pass the to_n here
+# TODO: Child should return a firebase instance
 class Firebase
   include Native
 
@@ -57,6 +58,7 @@ class Firebase
   end
 
   def once(event_type, &callback)
+    puts event_type
     wrapper = proc {|snapshot|
       snapshot = DataSnapshot.new(`snapshot`)
       callback.call(snapshot)
