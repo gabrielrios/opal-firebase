@@ -16,7 +16,6 @@ class Firebase
 
   alias_native :authorize, :auth
   alias_native :unauthorize, :unauth
-  alias_native :child, :child
   alias_native :parent, :parent
   alias_native :root, :root
   alias_native :name, :name
@@ -33,6 +32,11 @@ class Firebase
   alias_native :end_at, :endAt
   alias_native :go_online, :goOnline
   alias_native :go_offlien, :goOffline
+  alias_native :on_disconnect, :onDisconnect
+
+  def child(path)
+    Firebase.new(%x{ #@native.child(#{path}).toString() })
+  end
 
   # # Write data into your Firebase.
   # # TODO: Callback

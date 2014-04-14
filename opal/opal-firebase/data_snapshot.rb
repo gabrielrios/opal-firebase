@@ -14,6 +14,7 @@ class DataSnapshot
   end
 
   # Get a Hash representantion of the data snapshot
+  # TODO: is hash if its an object
   def value
     Hash.new(val)
   end
