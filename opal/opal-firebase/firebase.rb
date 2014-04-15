@@ -62,7 +62,6 @@ class Firebase
   end
 
   def once(event_type, &callback)
-    puts event_type
     wrapper = proc {|snapshot|
       snapshot = DataSnapshot.new(`snapshot`)
       callback.call(snapshot)
@@ -74,6 +73,10 @@ class Firebase
   # Get the absolute URL corresponding to this location.
   def to_s
     url
+  end
+
+  def to_n
+    @native
   end
 
   def inspect
