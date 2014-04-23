@@ -25,7 +25,6 @@ class Firebase
   alias_native :push, :push
   alias_native :set_with_priority, :setWithPriority
   alias_native :priority=, :setPriority
-  alias_native :transaction, :transaction
   alias_native :off, :off
   alias_native :limit, :limit
   alias_native :start_at, :startAt
