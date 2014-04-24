@@ -16,6 +16,7 @@ class Firebase
 
   alias_native :authorize, :auth
   alias_native :unauthorize, :unauth
+  alias_native :transaction, :transaction
   alias_native :parent, :parent
   alias_native :root, :root
   alias_native :name, :name

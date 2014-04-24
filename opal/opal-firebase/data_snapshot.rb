@@ -16,7 +16,7 @@ class DataSnapshot
   # Get a Hash representantion of the data snapshot
   # TODO: is hash if its an object
   def value
-    Hash.new(val)
+    Native(val)
   end
 
   #  Get a DataSnapshot for the specified child location.
@@ -64,6 +64,6 @@ class DataSnapshot
   end
 
   def inspect
-   "#<Firebase::Snapshot name:#{name} value:#{value}>"
+   "#<Firebase::Snapshot name:#{name} value:#{val}>"
   end
 end
