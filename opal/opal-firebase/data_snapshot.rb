@@ -25,8 +25,14 @@ class DataSnapshot
   end
 
   #  Enumerate through the DataSnapshot’s children.
+  #
   def each_child(&block)
-    raise NotImplementedError
+    wrapper = proc {|chil_snapshot|
+      snapshot = DataSnapshot.new(`child_snapshot`)
+      block.call(snapshot)
+    }.to_n
+
+    `#@native.forEach(#{wrapper})`
   end
 
   #  Return true if the specified child exists.
