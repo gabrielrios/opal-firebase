@@ -10,7 +10,7 @@ class DataSnapshot
   #
   #  Get the Javascript object representation of the DataSnapshot.
   def val
-     `#@native.val()`
+    `#@native.val()`
   end
 
   # Get a Hash representantion of the data snapshot
@@ -27,12 +27,11 @@ class DataSnapshot
   #  Enumerate through the DataSnapshot’s children.
   #
   def each_child(&block)
-    wrapper = proc {|chil_snapshot|
-      snapshot = DataSnapshot.new(`child_snapshot`)
-      block.call(snapshot)
-    }.to_n
-
-    `#@native.forEach(#{wrapper})`
+    %x{
+      #@native.forEach(function(childSnap) {
+        #{block.call(DataSnapshot.new %x{childSnap})}
+      })
+    }
   end
 
   #  Return true if the specified child exists.
@@ -57,7 +56,7 @@ class DataSnapshot
 
   #  Get the Firebase reference for this DataSnapshot's location.
   def reference
-    %x{ #{ Firebase.new `#@native.ref()` } }
+    %x{ #{ Firebase.new `#@native.ref().toString()` } }
   end
 
   #  Get the priority of the data in this DataSnapshot.
@@ -71,5 +70,9 @@ class DataSnapshot
 
   def inspect
    "#<Firebase::Snapshot name:#{name} value:#{val}>"
+  end
+
+  def to_n
+    @native
   end
 end
