@@ -38,6 +38,10 @@ class Firebase
     Firebase.new(%x{ #@native.child(#{path}).toString() })
   end
 
+  def limit(limit)
+    Query.new(%x{ #@native.limit(limit) })
+  end
+
   # # Write data into your Firebase.
   # # TODO: Callback
   # def set(value, &callback)
@@ -53,12 +57,18 @@ class Firebase
   # Based on
   # https://github.com/opal/opal-jquery/blob/master/opal/opal-jquery/element.rb#L279
   def on(event_type, &callback)
-    wrapper = proc {|snapshot|
-      snapshot = DataSnapshot.new(`snapshot`)
-      callback.call(snapshot)
-    }.to_n
+    %x{
+      var wrapper = function(snapshot) {
+        snapshot = #{DataSnapshot.new `snapshot`};
 
-    `#@native.on(#{event_type}, #{wrapper})`
+        return callback.apply(null, arguments);
+      }
+
+      callback._jq_wrap = wrapper
+
+      #@native.on(event_type, wrapper)
+    }
+    callback
   end
 
   def once(event_type, &callback)
