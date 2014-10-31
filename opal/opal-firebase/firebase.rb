@@ -23,7 +23,7 @@ class Firebase
   alias_native :set, :set
   alias_native :update, :update
   alias_native :remove, :remove
-  alias_native :push, :push
+  # alias_native :push, :push
   alias_native :set_with_priority, :setWithPriority
   alias_native :priority=, :setPriority
   alias_native :off, :off
@@ -49,9 +49,9 @@ class Firebase
   # end
 
   # # Add data to a list using a unique name.
-  # def push(value, &callback)
-  #   `#@native.push(#{value.to_n})`
-  # end
+  def push(value, &callback)
+    Firebase.new `#@native.push(#{value.to_n})`
+  end
 
   # Attach a callback to read data and receive data changes.
   # Based on
