@@ -50,7 +50,7 @@ class Firebase
 
   # # Add data to a list using a unique name.
   def push(value, &callback)
-    Firebase.new `#@native.push(#{value.to_n})`
+    Firebase.new `#@native.push(#{value.to_n}).toString()`
   end
 
   # Attach a callback to read data and receive data changes.
