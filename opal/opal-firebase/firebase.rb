@@ -15,6 +15,7 @@ class Firebase
   end
 
   alias_native :authorize, :auth
+  alias_native :authorize_with_token, :authWithCustomToken
   alias_native :unauthorize, :unauth
   alias_native :transaction, :transaction
   alias_native :parent, :parent
