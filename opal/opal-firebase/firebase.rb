@@ -27,7 +27,6 @@ class Firebase
   alias_native :set_with_priority, :setWithPriority
   alias_native :priority=, :setPriority
   alias_native :off, :off
-  alias_native :limit, :limit
   alias_native :start_at, :startAt
   alias_native :end_at, :endAt
   alias_native :go_online, :goOnline
@@ -40,6 +39,14 @@ class Firebase
 
   def limit(limit)
     Query.new(%x{ #@native.limit(limit) })
+  end
+
+  def limit_to_first(limit)
+    Query.new(%x{ #@native.limitToFirst(limit) })
+  end
+
+  def limit_to_last(limit)
+    Query.new(%x{ #@native.limitToLast(limit) })
   end
 
   # # Write data into your Firebase.
