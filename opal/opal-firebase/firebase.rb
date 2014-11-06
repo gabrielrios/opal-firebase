@@ -1,6 +1,6 @@
 # NOTE: should pass the to_n here
 # TODO: Child should return a firebase instance
-class Firebase
+class Firebase < Query
   include Native
 
   attr_accessor :url
@@ -24,12 +24,9 @@ class Firebase
   alias_native :set, :set
   alias_native :update, :update
   alias_native :remove, :remove
-  # alias_native :push, :push
   alias_native :set_with_priority, :setWithPriority
   alias_native :priority=, :setPriority
   alias_native :off, :off
-  alias_native :start_at, :startAt
-  alias_native :end_at, :endAt
   alias_native :go_online, :goOnline
   alias_native :go_offlien, :goOffline
   alias_native :on_disconnect, :onDisconnect
@@ -38,54 +35,9 @@ class Firebase
     Firebase.new(%x{ #@native.child(#{path}).toString() })
   end
 
-  def limit(limit)
-    Query.new(%x{ #@native.limit(limit) })
-  end
-
-  def limit_to_first(limit)
-    Query.new(%x{ #@native.limitToFirst(limit) })
-  end
-
-  def limit_to_last(limit)
-    Query.new(%x{ #@native.limitToLast(limit) })
-  end
-
-  # # Write data into your Firebase.
-  # # TODO: Callback
-  # def set(value, &callback)
-  #   `#@native.set(#{value.to_n})`
-  # end
-
-  # # Add data to a list using a unique name.
+  # Add data to a list using a unique name.
   def push(value, &callback)
     Firebase.new `#@native.push(#{value.to_n}).toString()`
-  end
-
-  # Attach a callback to read data and receive data changes.
-  # Based on
-  # https://github.com/opal/opal-jquery/blob/master/opal/opal-jquery/element.rb#L279
-  def on(event_type, &callback)
-    %x{
-      var wrapper = function(snapshot) {
-        snapshot = #{DataSnapshot.new `snapshot`};
-
-        return callback.apply(null, arguments);
-      }
-
-      callback._jq_wrap = wrapper
-
-      #@native.on(event_type, wrapper)
-    }
-    callback
-  end
-
-  def once(event_type, &callback)
-    wrapper = proc {|snapshot|
-      snapshot = DataSnapshot.new(`snapshot`)
-      callback.call(snapshot)
-    }.to_n
-
-    `#@native.once(#{event_type}, #{wrapper})`
   end
 
   # Get the absolute URL corresponding to this location.
