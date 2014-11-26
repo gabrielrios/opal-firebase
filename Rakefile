@@ -2,7 +2,7 @@ require 'bundler'
 Bundler.require
 Bundler::GemHelper.install_tasks
 
-require 'opal/rspec/rake_task'
+# require 'opal/rspec/rake_task'
 
 desc "Build build/opal-firebase.js"
 task :dist do
